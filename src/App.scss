@@ -1,0 +1,193 @@
+ol,
+ul {
+    list-style: none;
+}
+
+*,
+*::after,
+*::before {
+    box-sizing: border-box;
+}
+
+.cd-schedule {
+    position: relative;
+    .timeline {
+        display: block;
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 100%;
+        padding-top: 50px;
+        li {
+            position: relative;
+            height: 50px;
+            &::after {
+                content: '';
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 1px;
+                background: #EAEAEA;
+                width: calc(100% - 60px);
+                left: 60px;
+            }
+        }
+    }
+    .events {
+        float: left;
+        width: 100%;
+        width: calc(100% - 60px);
+        margin-left: 60px;
+        .events-group {
+            border: 1px solid #EAEAEA;
+            ul {
+                position: relative;
+                padding: 0 5%;
+                height: 1198px;
+                padding: 0;
+            }
+            .top-info {
+                display: flex;
+                height: 50px;
+                border-bottom: 1px solid #EAEAEA;
+                background: #EAEAEA;
+                width: 100%;
+                justify-content: center;
+                align-items: center;
+                font-size: 22px;
+                font-weight: 400;
+            }
+            .single-event {
+                position: absolute;
+                z-index: 3;
+                width: 100%;
+                height: auto;
+                max-width: none;
+                margin-right: 0;
+                background: cornflowerblue;
+                opacity: 0.6;
+                border-radius: 4px;
+                border: 2px solid #455A64;
+                display: flex;
+                flex-wrap: nowrap;
+                padding: 0 20px;
+                align-items: center;
+                justify-content: space-between;
+                &:hover {
+                    opacity: 1;
+                    z-index: 99;
+                }
+            }
+        }
+    }
+}
+
+.edit-button,
+.delete-button {
+    border: none;
+    background: none;
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: capitalize;
+    padding: 0 10px;
+    cursor: pointer;
+    outline: 0;
+    &:hover {
+        font-size: 15px;
+        font-weight: 900;
+    }
+}
+
+.form {
+    padding: 35px 35px 15px;
+    label {
+        display: block;
+        margin-bottom: 8px;
+        font-size: 18px;
+        font-weight: 500;
+        color: darkgray;
+    }
+    input {
+        height: 40px;
+        width: 100%;
+        border: 1px solid darkgrey;
+        border-radius: 6px;
+        margin-bottom: 10px;
+        outline: 0;
+        &::placeholder {
+            color: black;
+        }
+    }
+    .submit-form {
+        padding: 9px 35px;
+        border: 1px solid darkgrey;
+        border-radius: 6px;
+        margin-top: 10px;
+        display: inline-block;
+    }
+}
+
+.modal-header {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    span {
+        font-size: 28px;
+        font-weight: 500;
+        color: blue;
+    }
+}
+
+.ReactModal__Overlay {
+    z-index: 3;
+}
+
+
+/*modal css end*/
+
+.calendar header {
+    color: #FFFFFF;
+    cursor: default;
+    font-size: 1.4rem;
+    font-weight: bold;
+    text-transform: uppercase;
+    .month-display {
+        align-items: center;
+        height: 40px;
+        background: #2875C7;
+        .date-label {
+            width: 300px;
+            text-align: center;
+        }
+        .add-list {
+            border-left: 1px solid white;
+            height: 100%;
+            display: flex;
+            flex: 12%;
+            align-items: center;
+            justify-content: center;
+            &:hover {
+                border: 1px solid #1f5c9d;
+                background: #fff;
+                color: #1f5c9d;
+            }
+        }
+        .arrow {
+            flex-basis: 15%;
+            font-weight: bold;
+            height: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            &:hover {
+                background: #1f5c9d;
+            }
+        }
+    }
+    .row {
+        display: flex;
+        width: 100%;
+    }
+}

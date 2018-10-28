@@ -58,6 +58,9 @@ ul {
                 align-items: center;
                 font-size: 22px;
                 font-weight: 400;
+                @media only screen and (max-width: 425px) {
+                    font-size: 16px;
+                }
             }
             .single-event {
                 position: absolute;
@@ -150,9 +153,11 @@ ul {
 .calendar header {
     color: #FFFFFF;
     cursor: default;
-    font-size: 1.4rem;
     font-weight: bold;
     text-transform: uppercase;
+    @media only screen and (max-width: 425px) {
+        font-size: 10px;
+    }
     .month-display {
         align-items: center;
         height: 40px;

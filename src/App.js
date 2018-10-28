@@ -43,11 +43,10 @@ class App extends Component {
   // ----- Functions Starts
   componentDidMount(){
     //this.loadData();
-   localStorage.clear();
+    //localStorage.clear();
     
      const cachedHits = localStorage.getItem('myData');
       if (cachedHits) {
-        console.log(JSON.parse(cachedHits),"local-storage");
         let localStorageData = JSON.parse(cachedHits);
         this.setState({ 
           data: localStorageData,
@@ -55,8 +54,6 @@ class App extends Component {
           setData : localStorageData
         },function(){
           this.handleChange();
-          console.log(this.state.data,"data")
-          console.log(this.state.setData,"setData")
         });
         return;
       }
@@ -151,7 +148,6 @@ class App extends Component {
  } 
 
 	nextId(){
-    console.log(this.state.setData,"count");
 		this._newId = this.state.setData.length + 1;
 		return this._newId++
 	}
@@ -338,7 +334,6 @@ class List extends Component {
 	}
 
 	onEditTask() {
-    console.log(this.state.editing);
     this.openEditModal();
 		this.setState({editing: true})
 
@@ -349,11 +344,15 @@ class List extends Component {
     let title = this.refs.title.value;
     let startTime = this.refs.startTime.value;
     let endTime = this.refs.endTime.value;
-		
-		this.props.onEdit(this.props.id, title ,startTime, endTime);
 
-		this.setState({editing: false})
-
+    if (title==="" || startTime==="" || endTime===""){
+      alert("Please fill all the fields");
+      return;
+    }
+    else{
+      this.props.onEdit(this.props.id, title ,startTime, endTime);
+		  this.setState({editing: false})
+    } 			
   }
   
   setOnTimeline(startTime,endTime){
@@ -497,15 +496,19 @@ class Form extends Component {
 		let title = this.state.title;
     let startDate = this.state.startDate;
     let endDate = this.state.endDate;
-		console.log(title,startDate,endDate);
-		if (title) {
-			this.props.onAddANewTask(title,startDate,endDate);
-			this.setState({
-				title: '',
-        startDate: '',
-        endDate: ''
-			})
-		}
+
+      if (title==="" || startDate==="" || endDate===""){
+        alert("Please fill all the fields");
+        return;
+      }
+      else {
+        this.props.onAddANewTask(title,startDate,endDate);
+        this.setState({
+          title: '',
+          startDate: '',
+          endDate: ''
+        })
+      }
 	}
 	// ----- functions ends
 

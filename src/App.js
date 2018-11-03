@@ -382,7 +382,8 @@ class List extends Component {
     }
     else{
       this.props.onEdit(this.props.id, title ,startTime, endTime);
-		  this.setState({editing: false})
+      this.setState({editing: false})
+      this.closeEditModal()
     } 			
   }
   
@@ -428,46 +429,45 @@ class List extends Component {
 
 	render(){
 		return(
-      this.state.editing ? 
-      
-      <Modal
-          isOpen={this.state.editModal}
-          onRequestClose={this.closeEditModal}
-          style={customStyles}
-          >
-          <div className="modal-header">
-          <span>Edit Events</span>
-          <i className="fa fa-times fa-2x" onClick={this.closeEditModal}></i>
-          </div>
-          <form onSubmit={this.formSubmit} className="form">
-              <label>Title:</label>
-              <input type="text" ref='title' defaultValue={this.props.title}/>
-              <label>Start Time:</label>
-              <input type="datetime-local" ref='startTime' defaultValue={this.getIsoTime(this.props.startTime)}/> 
-              <label>End Time:</label>
-              <input type="datetime-local" ref='endTime' defaultValue={this.getIsoTime(this.props.endTime)}/>           
-              <Button icon={'save'} type='submit' className="submit-form" onClick={this.formSubmit.bind(this)}/>
-          </form>
-      </Modal>
+      <div>
 
-  :
-      
-      <li className="single-event" style={this.setOnTimeline(this.props.startTime,this.props.endTime)}>
-						<span>
-							<em className="event-name">{this.getShortName(this.props.title)}</em>
-						</span>
-            <div className="button-section">
-                <Button icon={'edit'}
-                  onClick={this.onEditTask.bind(this)}
-                  className="edit-button"
-                />
-                <Button icon={'delete'}
-                    onClick={this.onDeleteATask.bind(this)}
-                    className="delete-button"
-                />
-            </div> 
-			</li>
+          <Modal
+              isOpen={this.state.editModal}
+              onRequestClose={this.closeEditModal}
+              style={customStyles}
+              >
+              <div className="modal-header">
+              <span>Edit Events</span>
+              <i className="fa fa-times fa-2x" onClick={this.closeEditModal}></i>
+              </div>
+              <form onSubmit={this.formSubmit} className="form">
+                  <label>Title:</label>
+                  <input type="text" ref='title' defaultValue={this.props.title}/>
+                  <label>Start Time:</label>
+                  <input type="datetime-local" ref='startTime' defaultValue={this.getIsoTime(this.props.startTime)}/> 
+                  <label>End Time:</label>
+                  <input type="datetime-local" ref='endTime' defaultValue={this.getIsoTime(this.props.endTime)}/>           
+                  <Button icon={'save'} type='submit' className="submit-form" onClick={this.formSubmit.bind(this)}/>
+              </form>
+          </Modal>
 
+          <li className="single-event" style={this.setOnTimeline(this.props.startTime,this.props.endTime)}>
+                <span>
+                  <em className="event-name">{this.getShortName(this.props.title)}</em>
+                </span>
+                <div className="button-section">
+                    <Button icon={'edit'}
+                      onClick={this.onEditTask.bind(this)}
+                      className="edit-button"
+                    />
+                    <Button icon={'delete'}
+                        onClick={this.onDeleteATask.bind(this)}
+                        className="delete-button"
+                    />
+                </div> 
+          </li>
+
+      </div>   
 		)
 	}
 }

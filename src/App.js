@@ -310,11 +310,13 @@ class App extends Component {
                   <li className="events-group">
                     <div className="top-info"><span>Events</span></div>
                     <ul>       
-                      {this.state.data.map( (list) =>
+                      {this.state.data.map( (list,index) =>
                             <List
                             title={list.title}
                             startTime={list.startTime}
-                            endTime={list.endTime}  
+                            endTime={list.endTime} 
+                            index={index}  
+                            length={this.state.data.length}
                             id={list.id}
                             key={list.id}
                             onDeleteATaskFromTodo={this.onDeleteATaskInApp.bind(this)}
@@ -387,7 +389,12 @@ class List extends Component {
     } 			
   }
   
-  setOnTimeline(startTime,endTime){
+  setOnTimeline(startTime,endTime,index,length){
+    
+    let x= 0;
+    length <= 5 ? x = 20/length : length >= 6 && length <= 10 ? x = 60/length : x = 80/length;  
+    let width = 100 - (x * index);
+
     let start = this.getScheduleTimestamp((new Date(startTime)).getHours() + ":" + (new Date(startTime)).getMinutes());
     let duration = this.getScheduleTimestamp((new Date(endTime)).getHours() + ":" + (new Date(endTime)).getMinutes()) - start;
     
@@ -396,7 +403,7 @@ class List extends Component {
 	  let Style = {
       top: (eventTop -1) +'px',
       height: (eventHeight+1)+'px',
-      width: (Math.random() * (100 - 50) + 50) + '%'
+      width: width +'%'
     };
     return Style;
   }
@@ -451,7 +458,7 @@ class List extends Component {
               </form>
           </Modal>
 
-          <li className="single-event" style={this.setOnTimeline(this.props.startTime,this.props.endTime)}>
+          <li className="single-event" style={this.setOnTimeline(this.props.startTime,this.props.endTime,this.props.index,this.props.length)}>
                 <span>
                   <em className="event-name">{this.getShortName(this.props.title)}</em>
                 </span>

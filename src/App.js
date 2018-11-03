@@ -48,7 +48,7 @@ class App extends Component {
   // ----- Functions Starts
   componentDidMount(){
     //this.loadData();
-    localStorage.clear();
+    //localStorage.clear();
     
      const cachedHits = localStorage.getItem('myData');
       if (cachedHits) {
@@ -139,7 +139,7 @@ class App extends Component {
   }
 
   handleDateChange(date) {
-    console.log(date);
+   // console.log(date);
     this.setState({
       month: date
     },function(){
@@ -166,10 +166,17 @@ class App extends Component {
   //--------- Lists Functions
 
   handleChange () {
-    const data = this.state.namesInitial.filter(item => {             
-    let date = new Date(item.startTime);    
-     return date.toDateString().includes(this.state.month.format("ddd MMM DD YYYY"));
+    let data = this.state.namesInitial.filter(item => {             
+      let date = new Date(item.startTime);    
+      return date.toDateString().includes(this.state.month.format("ddd MMM DD YYYY"));
    });
+   data = data.sort(function(a,b) {
+     let x = `${`${new Date(a.startTime).getHours()}`.padStart(2,0)}${`${new Date(a.startTime).getMinutes()}`.padStart(2, 0)}`;
+     var y = `${`${new Date(b.startTime).getHours()}`.padStart(2,0)}${`${new Date(b.startTime).getMinutes()}`.padStart(2, 0)}`;
+    // console.log(x,y);
+     return y - x;
+   });
+
    this.setState({ data });
  } 
 
@@ -256,7 +263,7 @@ class App extends Component {
   createElements(){
     let elements = [];
     for(let i =0; i < 24; i++){
-        elements.push(<li><span>{`${i}`.padStart(2, 0)}:00</span></li>);
+        elements.push(<li key={i}><span>{`${i}`.padStart(2, 0)}:00</span></li>);
     }
     return elements;
   }

@@ -3,6 +3,9 @@ import moment from 'moment';
 import './App.scss';
 import data from './data.json';
 import Modal from 'react-modal';
+import DatePicker from 'react-datepicker';
+
+import 'react-datepicker/dist/react-datepicker.css';
  
 const customStyles = {
   content : {
@@ -37,13 +40,15 @@ class App extends Component {
     this.onAddANewTaskToArray = this.onAddANewTaskToArray.bind(this);
     this.openModal = this.openModal.bind(this);
     this.closeModal = this.closeModal.bind(this);
+
+    this.handleDateChange = this.handleDateChange.bind(this);
 	}
 
 
   // ----- Functions Starts
   componentDidMount(){
     //this.loadData();
-    //localStorage.clear();
+    localStorage.clear();
     
      const cachedHits = localStorage.getItem('myData');
       if (cachedHits) {
@@ -92,8 +97,9 @@ class App extends Component {
 
     this.setState({
       month: month.subtract(1, 'days'),
+    },function(){
+      this.handleChange();
     });
-    this.handleChange();
   }
 
   nextDay() {
@@ -103,8 +109,9 @@ class App extends Component {
 
     this.setState({
       month: month.add(1,'days'),
-    });
+    },function(){
       this.handleChange();
+    });
   }
     
   previousMonth() {
@@ -114,8 +121,9 @@ class App extends Component {
 
     this.setState({
       month: month.subtract(1, 'month'),
-    });
+    },function(){
       this.handleChange();
+    });
   }
 
   nextMonth() {
@@ -125,8 +133,19 @@ class App extends Component {
 
     this.setState({
       month: month.add(1,'month'),
-    });
+    },function(){
       this.handleChange();
+    });
+  }
+
+  handleDateChange(date) {
+    console.log(date);
+    this.setState({
+      month: date
+    },function(){
+      this.handleChange();
+    });
+    
   }
 
   renderMonthLabel() {
@@ -134,7 +153,18 @@ class App extends Component {
       month,
     } = this.state;
 
-    return <span className="date-label">{month.format("DD MMMM,  YYYY")}</span>;
+    return <span className="date-label">
+    <DatePicker
+        selected={this.state.month}
+        onChange={this.handleDateChange}
+        dateFormat="DD MMMM,  YYYY"
+        peekNextMonth
+        showMonthDropdown
+        showYearDropdown
+        dropdownMode="select"
+        withPortal
+    />
+    </span>;
   }
      
   //--------- Lists Functions
@@ -171,6 +201,7 @@ class App extends Component {
       setData: setdata
 		},function(){
       this.handleChange();
+      this.closeModal();
     })
     
 	}

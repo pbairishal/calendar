@@ -149,10 +149,6 @@ class App extends Component {
   }
 
   renderMonthLabel() {
-    const {
-      month,
-    } = this.state;
-
     return <span className="date-label">
     <DatePicker
         selected={this.state.month}
@@ -279,7 +275,7 @@ class App extends Component {
                 {this.renderMonthLabel()}
                 <i className="arrow fa fa-angle-right" onClick={this.nextDay}/>
                 <i className="arrow fa fa-angle-double-right" onClick={this.nextMonth}/>
-                <a className="add-list" onClick={this.openModal}>ADD</a>
+                <span className="add-list" onClick={this.openModal}>ADD</span>
               </div>
             </header>
         </section>   

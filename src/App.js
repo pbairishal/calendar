@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types'
 import moment from 'moment';
 import './App.scss';
 import data from './data.json';
@@ -151,6 +152,7 @@ class App extends Component {
   renderMonthLabel() {
     return <span className="date-label">
     <DatePicker
+        customInput={<DatePickerCustomInput />}
         selected={this.state.month}
         onChange={this.handleDateChange}
         dateFormat="DD MMMM,  YYYY"
@@ -340,6 +342,24 @@ class App extends Component {
 // end of App class
 
 // ---Components Starts
+
+// Custom Datepicker Input
+class DatePickerCustomInput extends React.Component {
+  static propTypes = {
+    onClick: PropTypes.func,
+    value: PropTypes.string
+  }
+
+  render () {
+    return (
+      <button
+        className="date-picker-box"
+        onClick={this.props.onClick}>
+        {this.props.value}
+      </button>
+    )
+  }
+}
 
 // List Component
 
